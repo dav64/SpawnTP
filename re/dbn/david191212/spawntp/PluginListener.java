@@ -20,8 +20,11 @@ public class PluginListener implements Listener
 	{
 		Player player = e.getPlayer();
 		
-		// If player do not have the requested tag
-		if (!player.getScoreboardTags().contains(plugin.ignoretag))
+		Boolean bypass = (player.getScoreboardTags().contains(plugin.ignoretag)
+			|| player.hasPermission(plugin.ignorepermission));
+		
+		// If player does have at least one bypass permission
+		if (!bypass)
 		{
 			player.setGameMode(plugin.gamemode);
 			player.teleport(this.plugin.spawn);
